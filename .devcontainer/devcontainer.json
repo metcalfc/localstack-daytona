@@ -1,0 +1,58 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "localstack",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/base:jammy",
+	"features": {
+		"ghcr.io/devcontainers/features/aws-cli:1": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"installDockerBuildx": true,
+			"version": "20.10",
+			"dockerDashComposeVersion": "v2"
+		},
+		"ghcr.io/devcontainers-contrib/features/aws-cdk:2": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers-contrib/features/localstack:2": {
+			"version": "latest"
+		}
+	},
+
+	"portsAttributes": {
+		"4510-4559": {
+			"onAutoForward": "ignore"
+		},
+		"4566": {
+			"onAutoForward": "ignore"
+		},
+		"53": {
+			"onAutoForward": "ignore"
+		},
+		"443": {
+			"onAutoForward": "ignore"
+		},
+		"3000":{
+			"label": "WebApp",
+			"onAutoForward": "openPreview"
+		}
+	},
+
+	"containerEnv": {
+		"EXTRA_CORS_ALLOWED_ORIGINS": "*",
+ 		"DISABLE_CORS_CHECKS": "1",
+ 		"DISABLE_CUSTOM_CORS_APIGATEWAY": "1",
+	},
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "bash ./devcontainer/init.sh",
+	"postAttachCommand": "bash ./devcontainer/start.sh",
+
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+
+}
